@@ -48,7 +48,14 @@
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->year }}</td>
                                     <td>
-                                        <a href="{{ route('vehicle.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        @if($item->status == 0)
+                                            <button class="btn btn-sm btn-primary" disabled>Edit</button>
+                                            <button class="btn btn-sm btn-danger" disabled>Delete</button>
+                                        @else
+                                            <a href="{{ route('vehicle.edit', Crypt::encrypt($item->id)) }}" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="{{ route('vehicle.delete.soft', Crypt::encrypt($item->id)) }}" class="btn btn-sm btn-danger">Delete</a>
+                                            <a class="btn btn-sm btn-warning" id="ajaxDelete" data-vehicle-id="{{ Crypt::encrypt($item->id) }}">Ajax Delete</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -59,4 +66,15 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $(document).on('click','a#ajaxDelete',function(){
+		    var vehicleId = $(this).attr('data-vehicle-id');
+			alert(vehicleId);
+		});
+
+    });
+</script>
 @endsection

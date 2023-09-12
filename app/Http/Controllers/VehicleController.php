@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class VehicleController extends Controller
 {
@@ -48,6 +49,7 @@ class VehicleController extends Controller
     }
 
     public function edit($id){
+        $id = Crypt::decrypt($id);
         $edit = true;
         $vehicle = Vehicle::where('id',$id)->first();
         //dd($vehicle);
@@ -68,5 +70,22 @@ class VehicleController extends Controller
         Vehicle::where('id',$id)->update($input);
 
         return redirect(route('vehicle.index'))->withSuccess('Vehicle updated added successfully');
+    }
+
+    public function delete($id){
+
+        Vehicle::where('id',$id)->delete();
+        return redirect(route('vehicle.index'))->withSuccess('Vehicle deleted successfully');
+
+    }
+
+    public function softDelete($id){
+        $input = [];
+        $input['status'] = 0;
+        $input['deleted_at'] = now();
+
+        Vehicle::where('id',$id)->update($input);
+        return redirect(route('vehicle.index'))->withSuccess('Vehicle deleted successfully');
+
     }
 }
