@@ -72,7 +72,20 @@
 
         $(document).on('click','a#ajaxDelete',function(){
 		    var vehicleId = $(this).attr('data-vehicle-id');
-			alert(vehicleId);
+			//alert(vehicleId);
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')},
+                type:'get',
+                url:'/vehicle/delete/ajax/'+vehicleId,
+                success:function(data) {
+                    alert('Dah Berjaya Delete');
+                },
+                error:function() {
+
+                }
+            });
+
 		});
 
     });

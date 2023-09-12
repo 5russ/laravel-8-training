@@ -88,4 +88,19 @@ class VehicleController extends Controller
         return redirect(route('vehicle.index'))->withSuccess('Vehicle deleted successfully');
 
     }
+
+    public function ajaxDelete($id){
+        //dd($id);
+        $id = Crypt::decrypt($id);
+        $input = [];
+        $input['status'] = 0;
+        $input['deleted_at'] = now();
+
+        Vehicle::where('id',$id)->update($input);
+
+        return response()->json('success');
+
+        //return redirect(route('vehicle.index'))->withSuccess('Vehicle deleted successfully');
+
+    }
 }
