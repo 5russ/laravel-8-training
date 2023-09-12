@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group row">
                             <label>Year</label>
-                            <input class="form-control col-lg-4" type="text" name="year" placeholder="Enter Year" value="@if($edit){{ $vehicle->year }}@endif">
+                            <input class="form-control col-lg-4" type="number" name="year" placeholder="Enter Year" value="@if($edit){{ $vehicle->year }}@endif">
                         </div>
                         <button type="submit" class="btn btn-sm btn-success">@if($edit)Update @else Add @endif</button>
                     </form>
