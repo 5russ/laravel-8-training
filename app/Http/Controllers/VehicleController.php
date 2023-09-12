@@ -16,8 +16,8 @@ class VehicleController extends Controller
     }
 
     public function create(){
-
-        return view('vehicle.addVehicle');
+        $edit = false;
+        return view('vehicle.addVehicle',compact('edit'));
     }
 
     public function save(Request $request){
@@ -44,6 +44,29 @@ class VehicleController extends Controller
         ]);
         */
 
-        return redirect(route('vehicle.index'));
+        return redirect(route('vehicle.index'))->withSuccess('Vehicle data added successfully');
+    }
+
+    public function edit($id){
+        $edit = true;
+        $vehicle = Vehicle::where('id',$id)->first();
+        //dd($vehicle);
+        return view('vehicle.addVehicle',compact('vehicle','edit'));
+    }
+
+    public function update(Request $request, $id){
+        //dd($request,'Vehicle ID :'.$id);
+        $input = [];
+        $input['brand'] = $request->brand;
+        $input['model'] = $request->model;
+        $input['type'] = $request->type;
+        $input['year'] = $request->year;
+        $input['status'] = 1;
+        $input['updated_at'] = now();
+        //dd($input);
+
+        Vehicle::where('id',$id)->update($input);
+
+        return redirect(route('vehicle.index'))->withSuccess('Vehicle updated added successfully');
     }
 }

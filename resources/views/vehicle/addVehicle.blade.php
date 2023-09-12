@@ -8,8 +8,6 @@
                 <div class="card-header">
                     {{ __('Vehicle') }}
 
-                    <a class="btn btn-sm btn-info" href="">Add Vehicle</a>
-
                 </div>
 
                 <div class="card-body">
@@ -19,27 +17,27 @@
                         </div>
                     @endif
 
-                    <h3>Add New Vehicle</h3>
+                    <h3>Vehicle Information</h3>
 
-                    <form class="form" action="{{ route('vehicle.save') }}" method="post">
+                    <form class="form" action="@if($edit){{ route('vehicle.update',$vehicle->id) }}@else{{ route('vehicle.save') }}@endif" method="post">
                         @csrf
                         <div class="form-group row">
                             <label>Brand</label>
-                            <input class="form-control col-lg-4" type="text" name="brand" placeholder="Enter Brand">
+                            <input class="form-control col-lg-4" type="text" name="brand" placeholder="Enter Brand" value="@if($edit){{ $vehicle->brand }}@endif">
                         </div>
                         <div class="form-group row">
                             <label>Model</label>
-                            <input class="form-control col-lg-4" type="text" name="model" placeholder="Enter Model">
+                            <input class="form-control col-lg-4" type="text" name="model" placeholder="Enter Model" value="@if($edit){{ $vehicle->model }}@endif">
                         </div>
                         <div class="form-group row">
                             <label>Type</label>
-                            <input class="form-control col-lg-4" type="text" name="type" placeholder="Enter Type">
+                            <input class="form-control col-lg-4" type="text" name="type" placeholder="Enter Type" value="@if($edit){{ $vehicle->type }}@endif">
                         </div>
                         <div class="form-group row">
                             <label>Year</label>
-                            <input class="form-control col-lg-4" type="text" name="year" placeholder="Enter Year">
+                            <input class="form-control col-lg-4" type="text" name="year" placeholder="Enter Year" value="@if($edit){{ $vehicle->year }}@endif">
                         </div>
-                        <button type="submit" class="btn btn-sm btn-success">Add Vehicle</button>
+                        <button type="submit" class="btn btn-sm btn-success">@if($edit)Update @else Add @endif</button>
                     </form>
                 </div>
             </div>
