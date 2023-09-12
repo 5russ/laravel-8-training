@@ -80,6 +80,7 @@
                 url:'/vehicle/delete/ajax/'+vehicleId,
                 success:function(data) {
                     alert('Dah Berjaya Delete');
+                    window.location.href = '/vehicle';
                 },
                 error:function() {
 
