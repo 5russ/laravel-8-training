@@ -43,9 +43,20 @@
                                             <div class="mb-3">
                                                 <label class="text-gray-600 small" for="passwordExample">Password</label>
                                                 <input class="form-control form-control-solid" type="password" placeholder="" aria-label="Password" aria-describedby="passwordExample" name="password" required />
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <!-- Form Group (forgot password link)-->
-                                            <div class="mb-3"><a class="small" href="auth-password-social.html">Forgot your password?</a></div>
+                                            <div class="mb-3">
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                    {{ __('Forgot Your Password?') }}
+                                                </a>
+                                            @endif
+                                            </div>
                                             <!-- Form Group (login box)-->
                                             <div class="d-flex align-items-center justify-content-between mb-0">
                                                 <div class="form-check">
@@ -55,6 +66,7 @@
                                                 <button type="submit" class="btn btn-primary">
                                                     {{ __('Login') }}
                                                 </button>
+
                                             </div>
                                         </form>
                                     </div>
@@ -62,7 +74,7 @@
                                     <div class="card-body px-5 py-4">
                                         <div class="small text-center">
                                             New user?
-                                            <a href="auth-register-social.html">Create an account!</a>
+                                            <a href="{{ route('register') }}">Create an account!</a>
                                         </div>
                                     </div>
                                 </div>
